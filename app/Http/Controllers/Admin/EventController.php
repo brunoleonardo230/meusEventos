@@ -21,14 +21,14 @@ class EventController extends Controller
         return view('admin.events.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $event = request()->all();
+        $event = $request->all();
         $event['slug'] = Str::slug($event['title']);
 
         Event::create($event);
 
-        return redirect()->to('/admin/events/index');
+        return redirect()->route('admin.events');
     }
 
     public function edit($event)
@@ -38,11 +38,11 @@ class EventController extends Controller
         return view('admin.events.edit', compact('event'));
     }
 
-    public function update($event)
+    public function update($event, Request $request)
     {
         $event = Event::findOrFail($event);
 
-        $event->update(request()->all());
+        $event->update($request->all());
 
         return redirect()->back();
     }
@@ -50,8 +50,9 @@ class EventController extends Controller
     public function destroy($event)
     {
        $event = Event::findOrFail($event);
+       $event->delete();
 
-       return $event->delete();
+        return redirect()->route('admin.events');
 
     }
 }

@@ -16,7 +16,7 @@
                         <h5 class="card-title">{{$event->title}}</h5>
                         <strong>Acontece em {{$event->start_event->format('d/m/Y H:m:s')}}</strong>
                         <p>{{$event->description}}</p>
-                        <a href="/eventos/{{$event->slug}}" class="btn btn-default">Ver evento</a>
+                        <a href="{{route('event.single',['slug' => $event->slug])}}" class="btn btn-default">Ver evento</a>
                     </div>
                 </div>
             </div>
