@@ -8,25 +8,57 @@
             <h2>Criar Evento</h2>
         </div>
     </div>
+    {{--
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $erro)
+                        <li>{{$erro}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    --}}
+
     <div class="row">
         <div class="col-12">
             <form action="{{route('admin.events.store')}}" method="post">
                 @csrf
                 <div class="form-group">
                     <label>Titulo Evento</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror">
+                    @error('title')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Descrição Rápida Evento</label>
-                    <input type="text" name="description" class="form-control">
+                    <input type="text" name="description" class="form-control @error('description') is-invalid @enderror">
+                    @error('description')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Fale Mais Sobre o Evento</label>
-                    <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
+                    <textarea name="body" id="" cols="30" rows="10" class="form-control  @error('body') is-invalid @enderror"></textarea>
+                    @error('body')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Quando vai Acontecer</label>
-                    <input type="text" name="start_event" class="form-control">
+                    <input type="text" name="start_event" class="form-control @error('start_event') is-invalid @enderror">
+                    @error('start_event')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-lg btn-success">Criar Evento</button>
             </form>
