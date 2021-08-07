@@ -7,15 +7,24 @@ use App\Models\Event;
 
 class HomeController extends Controller
 {
+    private $event;
+
+    public function __construct(Event $event)
+    {
+        $this->event = $event;
+    }
+
     public function index()
     {
-        $events = Event::all();
-        return view('welcome', compact('events'));
+        $events = $this->event->orderBy('start_event', 'DESC')->paginate(15);
+
+        return view('home', compact('events'));
     }
 
     public function show($slug)
     {
-        $event = Event::whereSlug($slug)->first();
+        $event = $this->event->whereSlug($slug)->first();
+
         return view('event', compact('event'));
     }
 }
