@@ -35,6 +35,11 @@ class Event extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
+    public function setStartEventAttribute($value)
+    {
+        $this->attributes['start_event'] = (\DateTime::createFromFormat('d/m/Y H:i', $value))->format('Y-m-d H:i');
+    }
+
     public function photos()
     {
         return $this->hasMany(Photo::class);

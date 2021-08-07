@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label>Quando vai Acontecer</label>
-                    <input type="text" name="start_event" class="form-control @error('body') is-invalid @enderror" value="{{$event->start_event}}">
+                    <input type="text" name="start_event" class="form-control @error('body') is-invalid @enderror" value="{{$event->start_event->format('d/m/Y H:i')}}">
                     @error('start_event')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -54,4 +54,12 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        let el = document.querySelector('input[name=start_event]');
+        let im = new Inputmask('99/99/9999 99:99');
+        im.mask(el);
+    </script>
 @endsection
