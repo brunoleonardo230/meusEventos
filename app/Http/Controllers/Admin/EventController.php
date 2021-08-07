@@ -6,7 +6,6 @@ use App\Http\Requests\EventRequest;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -36,7 +35,7 @@ class EventController extends Controller
     public function store(EventRequest $request)
     {
         $event = $request->all();
-        $event['slug'] = Str::slug($event['title']);
+//        $event['slug'] = $event['title'];
 
         $event = $this->event->create($event);
         $event->owner()->associate(auth()->user());
