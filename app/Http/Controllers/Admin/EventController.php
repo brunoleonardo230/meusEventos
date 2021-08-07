@@ -18,7 +18,7 @@ class EventController extends Controller
     }
     public function index()
     {
-        $events = $this->event->paginate(10);
+        $events = auth()->user()->events()->paginate(10);
 
         return view('admin.events.index', compact('events'));
     }
@@ -38,7 +38,10 @@ class EventController extends Controller
         $event = $request->all();
         $event['slug'] = Str::slug($event['title']);
 
-        $this->event->create($event);
+        $event = $this->event->create($event);
+        $event->owner()->associate(auth()->user());
+        $event->save();
+
 
         return redirect()->route('admin.events.index');
     }
