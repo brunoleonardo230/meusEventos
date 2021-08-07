@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -22,28 +23,28 @@ class EventController extends Controller
 
     public function store()
     {
-        $event = [
-            'title' => 'Evento Atribuição em Massa ' . rand(1, 100),
-            'description' => 'Descrição atualizada...',
-            'body' => 'Conteúdo do evento atualizado com atualização em massa',
-            'slug' => 'evento-atribuicao-em-massa',
-            'start_event' => date('Y-m-d H:i:s'),
-        ];
+        $event = request()->all();
+        $event['slug'] = Str::slug($event['title']);
 
-        return Event::create($event);
+        Event::create($event);
+
+        return redirect()->to('/admin/events/index');
+    }
+
+    public function edit($event)
+    {
+        $event = Event::findOrFail($event);
+
+        return view('admin.events.edit', compact('event'));
     }
 
     public function update($event)
     {
-        $eventData = [
-            'title' => 'Evento Atribuição em Massa '. rand(1, 1000),
-        ];
+        $event = Event::findOrFail($event);
 
-        $event = Event::find($event);
+        $event->update(request()->all());
 
-        $event->update($eventData);
-
-        return $event;
+        return redirect()->back();
     }
 
     public function destroy($event)
