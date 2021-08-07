@@ -17,7 +17,7 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/eventos/{slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('event.single');
 
 //Rotas eventos
-Route::prefix('/admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 //    Route::prefix('/events')->name('events.')->group(function () {
 //        Route::get('/', [\App\Http\Controllers\Admin\EventController::class,'index'])->name('index');
 //        Route::get('/create', [\App\Http\Controllers\Admin\EventController::class,'create'])->name('create');
