@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Event;
+use App\Models\{Event, Category};
 
 class HomeController extends Controller
 {
@@ -16,7 +16,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        $events = $this->event->orderBy('start_event', 'DESC')->paginate(15);
+        $byCategory = request()->has('category')
+            ? Category::whereSlug(request()->get('category'))->first()->events() : null;
+
+        $events = $this->event->getEventsHome($byCategory)->paginate(15);
 
         return view('home', compact('events'));
     }

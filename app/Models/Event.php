@@ -40,6 +40,9 @@ class Event extends Model
         $this->attributes['start_event'] = (\DateTime::createFromFormat('d/m/Y H:i', $value))->format('Y-m-d H:i');
     }
 
+    /**
+     * Relations
+     */
     public function photos()
     {
         return $this->hasMany(Photo::class);
@@ -53,5 +56,25 @@ class Event extends Model
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Our Methods
+     */
+
+    public function getEventsHome($byCategory = null)
+    {
+        $events = $byCategory
+            ? $byCategory
+            : $this->orderBy('start_event', 'DESC');
+
+        $events->when($search = request()->query('s'), function($queryBuilder) use($search) {
+            return $queryBuilder->where('title', 'LIKE', '%' . $search . '%');
+        });
+
+//        $events->whereRaw('DATE(start_event) >= DATE(NOW())');
+        
+        $events->whereDate('start_event', '>=', now());
+        return $events;
     }
 }
