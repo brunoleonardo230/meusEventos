@@ -22,7 +22,7 @@
 
     <div class="row">
         <div class="col-12">
-            <form action="{{route('admin.events.store')}}" method="post">
+            <form action="{{route('admin.events.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Titulo Evento</label>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label>Fale Mais Sobre o Evento</label>
-                    <textarea name="body" id="" cols="30" rows="10" class="form-control  @error('body') is-invalid @enderror">{{old('title')}}</textarea>
+                    <textarea name="body" id="" cols="30" rows="10" class="form-control  @error('body') is-invalid @enderror">{{old('body')}}</textarea>
                     @error('body')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -55,6 +55,15 @@
                     <label>Quando vai Acontecer</label>
                     <input type="text" name="start_event" class="form-control @error('start_event') is-invalid @enderror" value="{{old('start_event')}}">
                     @error('start_event')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Carregar Banner Evento</label>
+                    <input type="file" name="banner" class="form-control @error('banner') is-invalid @enderror">
+                    @error('banner')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>

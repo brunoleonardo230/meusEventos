@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/eventos/{slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('event.single');
+Route::get('/eventos/{event:slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('event.single');
 
 //Rotas eventos
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
@@ -29,7 +29,7 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 
     Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
     Route::resource('events.photos', \App\Http\Controllers\Admin\EventPhotoController::class)
-        ->only('destroy');
+        ->only(['index','store','destroy']);
 
 //    Route::resources([
 //        'events' => \App\Http\Controllers\Admin\EventController::class,

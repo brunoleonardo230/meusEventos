@@ -15,7 +15,7 @@
                     <th>#</th>
                     <th>Evento</th>
                     <th>Criado Em</th>
-                    <th width="16%">Ações</th>
+                    <th width="30%">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,6 +31,7 @@
                                 @method('DELETE')
                                 <button class="btn btn-danger">Remover</button>
                             </form>
+                            <a href="{{route('admin.events.photos.index', ['event' => $event->id])}}" class="btn btn-primary">Carrgar Fotos</a>
                         </td>
                     </tr>
                 @empty

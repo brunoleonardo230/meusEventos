@@ -16,10 +16,10 @@ class Event extends Model
     /**
      * Acessor
      */
-    public function getTitleAttribute()
-    {
-        return 'Evento: ' . $this->attributes['title'];
-    }
+//    public function getTitleAttribute()
+//    {
+//        return 'Evento: ' . $this->attributes['title'];
+//    }
 
     public function getOwnerNameAttribute()
     {

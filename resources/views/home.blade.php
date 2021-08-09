@@ -17,7 +17,7 @@
                         <strong>Acontece em {{$event->start_event->format('d/m/Y H:m:s')}}</strong>
                         <p>{{$event->description}}</p>
                         <p>Evento Organizado por: <a href="#">{{$event->owner_name}}</a></p>
-                        <a href="{{route('event.single',['slug' => $event->slug])}}" class="btn btn-default">Ver evento</a>
+                        <a href="{{route('event.single',['event' => $event->slug])}}" class="btn btn-default">Ver evento</a>
                     </div>
                 </div>
             </div>
