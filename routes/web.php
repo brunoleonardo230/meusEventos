@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos/{event:slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('event.single');
 
+//Rotas Enrollment
+Route::prefix('/enrollment/')->name('enrollment.')->group(function() {
+    Route::get('/start/{event:slug}', [App\Http\Controllers\EnrollmentController::class, 'start'])->name('start');
+    Route::get('/confirm', [App\Http\Controllers\EnrollmentController::class, 'confirm'])->name('confirm')->middleware('auth');
+    Route::get('/proccess', [App\Http\Controllers\EnrollmentController::class, 'proccess'])->name('proccess')->middleware('auth');
+
+});
 //Rotas eventos
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 //    Route::prefix('/events')->name('events.')->group(function () {
