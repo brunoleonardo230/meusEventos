@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserEnrollmentMail;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class EnrollmentController extends Controller
 {
@@ -28,16 +30,22 @@ class EnrollmentController extends Controller
         if (!session()->has('enrollment')) return redirect()->route('home');
 
         $event = Event::find(session('enrollment'));
+        $user = auth()->user();
 
         $event->enrolleds()->attach(
             [
-                auth()->id() => [
+                $user->id() => [
                     'reference' => uniqid(),
                     'status' => 'ACTIVE'
                 ]
             ]);
 
         session()->forget('enrollment');
+
+        $user = auth()->user();
+
+        Mail::to($user)
+            ->send(new UserEnrollmentMail($user, $event));
 
         return redirect()->route('event.single', $event->slug);
     }

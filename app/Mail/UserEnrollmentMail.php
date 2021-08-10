@@ -11,14 +11,17 @@ class UserEnrollmentMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
+    public $event;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $event)
     {
-        //
+        $this->user = $user;
+        $this->user = $event;
     }
 
     /**
@@ -28,6 +31,8 @@ class UserEnrollmentMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this
+            ->subject('Confirmação de Inscrição')
+            ->view('emails.enrollment-user');
     }
 }
