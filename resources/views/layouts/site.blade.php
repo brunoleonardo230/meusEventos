@@ -50,6 +50,15 @@
         </div>
     </nav>
     <div class="container">
+
+        <!-- Messages -->
+        <div class="row">
+            <div class="col-12">
+                @include('messages.bootstrap.messages')
+            </div>
+        </div>
+        <!-- Messages -->
+
         @yield('content')
     </div>
     <script src="{{asset('js/app.js')}}"></script>

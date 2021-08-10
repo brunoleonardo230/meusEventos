@@ -49,6 +49,8 @@ class EventPhotoController extends Controller
 
         $event->photos()->createMany($uploadedPhotos);
 
+        \App\Services\MessageService::addFlash('success', 'Foto(s) adicionadas com sucesso!');
+
         return redirect()->back();
     }
 
@@ -103,6 +105,8 @@ class EventPhotoController extends Controller
         }
 
         $photo->delete();
+
+        \App\Services\MessageService::addFlash('success', 'Foto removida com sucesso!');
 
         return redirect()->back();
     }
