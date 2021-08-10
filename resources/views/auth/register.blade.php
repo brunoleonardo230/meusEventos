@@ -66,6 +66,12 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+
+                                @if(session()->has('enrollment'))
+                                    <div class="col-12">
+                                        <p>Já possui conta? <a class="btn btn-link" href="{{route('login')}}">Acessar Conta</a></p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </form>

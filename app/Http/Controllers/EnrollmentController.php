@@ -22,6 +22,8 @@ class EnrollmentController extends Controller
 
         $event = Event::find(session('enrollment'));
 
+        if ($event->enrolleds->contains(auth()->user())) return redirect()->route('event.single', $event->slug);
+
         return view('enrollment-confirm', compact('event'));
     }
 
@@ -34,7 +36,7 @@ class EnrollmentController extends Controller
 
         $event->enrolleds()->attach(
             [
-                $user->id() => [
+                $user->id => [
                     'reference' => uniqid(),
                     'status' => 'ACTIVE'
                 ]
@@ -42,7 +44,7 @@ class EnrollmentController extends Controller
 
         session()->forget('enrollment');
 
-        $user = auth()->user();
+
 
         Mail::to($user)
             ->send(new UserEnrollmentMail($user, $event));
